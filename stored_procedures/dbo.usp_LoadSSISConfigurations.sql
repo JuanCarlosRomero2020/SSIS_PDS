@@ -69,7 +69,7 @@ SELECT c.*
     VALUES
           (
            'CommonConfigurations'
-         , 'Data Source=localhost;Initial Catalog=EXM;Provider=SQLNCLI11;Integrated Security=SSPI;'
+         , 'Data Source=DESKTOP-PQNE2KP\MSSQLSERVER01;Initial Catalog=EXM;Provider=SQLNCLI11;Integrated Security=SSPI;'
          , '\Package.Variables[User::conn_EXM].Properties[Value]'
          , 'String'
           );
@@ -84,7 +84,7 @@ SELECT c.*
     VALUES
           (
            'CommonConfigurations'
-         , 'Data Source=localhost;Initial Catalog=DFNB3;Provider=SQLNCLI11;Integrated Security=SSPI;'
+         , 'Data Source=DESKTOP-PQNE2KP\MSSQLSERVER01;Initial Catalog=DFNB3;Provider=SQLNCLI11;Integrated Security=SSPI;'
          , '\Package.Variables[User::conn_DFNB3].Properties[Value]'
          , 'String'
           );
