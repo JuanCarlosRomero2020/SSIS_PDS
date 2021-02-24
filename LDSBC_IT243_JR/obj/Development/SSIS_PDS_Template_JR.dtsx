@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="SSIS_PDS_Template_JR"
   DTS:PackageType="5"
-  DTS:VersionBuild="62"
-  DTS:VersionGUID="{D565F2CA-DBF8-4B66-8E6B-CD5495840137}">
+  DTS:VersionBuild="68"
+  DTS:VersionGUID="{97C593DC-01C0-48EF-B9BC-8AD0257B3C0C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -128,13 +128,34 @@
       DTS:DTSID="{C5CB463C-D5A5-4622-8A2B-1F11FCEE5A24}"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
-      DTS:ObjectName="v_data_share">
+      DTS:ObjectName="v_data_share_root">
       <DTS:VariableValue
-        DTS:DataType="8"
-        xml:space="preserve"></DTS:VariableValue>
+        DTS:DataType="8">C:\Users\z035330\Documents\JJAUSSI\Other\JC\projects\LDSBC\IT_243\repos\DFNB_src\txt_files\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7EC195EB-E05C-4893-8F06-EE1AC8A5091F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_get_date"
+      DTS:RaiseChangedEvent="True">
+      <DTS:VariableValue
+        DTS:DataType="8">0</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Documentation"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{B1D51D19-5B60-4D7E-8EC5-C9BCA91D8A92}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Documentation">
+      <DTS:Variables />
+      <DTS:Executables />
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Parent Container"
       DTS:CreationName="STOCK:SEQUENCE"
@@ -154,7 +175,7 @@
           DTS:ExecutableType="Microsoft.ScriptTask"
           DTS:LocaleID="-1"
           DTS:ObjectName="MsgBox check variable"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="1">
           <DTS:Variables />
           <DTS:ObjectData>
             <ScriptProject
@@ -201,6 +222,133 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
+              <ProjectItem
+                Name="ScriptMain.vb"
+                Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
+'The Script Task allows you to perform virtually any operation that can be accomplished in
+'a .Net application within the context of an Integration Services control flow. 
+
+'Expand the other regions which have "Help" prefixes for examples of specific ways to use
+'Integration Services features within this script task.
+#End Region
+
+
+#Region "Imports"
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+#End Region
+
+'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+'or parent of this class.
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+#Region "Help:  Using Integration Services variables and parameters in a script"
+    'To use a variable in this script, first ensure that the variable has been added to 
+    'either the list contained in the ReadOnlyVariables property or the list contained in 
+    'the ReadWriteVariables property of this script task, according to whether or not your
+    'code needs to write to the variable.  To add the variable, save this script, close this instance of
+    'Visual Studio, and update the ReadOnlyVariables and 
+    'ReadWriteVariables properties in the Script Transformation Editor window.
+    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
+
+    'Example of reading from a variable:
+    ' startTime = Dts.Variables("System::StartTime").Value
+
+    'Example of writing to a variable:
+    ' Dts.Variables("User::myStringVariable").Value = "new value"
+
+    'Example of reading from a package parameter:
+    ' batchId = Dts.Variables("$Package::batchId").Value
+
+    'Example of reading from a project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").Value
+
+    'Example of reading from a sensitive project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
+#End Region
+
+#Region "Help:  Firing Integration Services events from a script"
+    'This script task can fire events for logging purposes.
+
+    'Example of firing an error event:
+    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
+
+    'Example of firing an information event:
+    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
+
+    'Example of firing a warning event:
+    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
+#End Region
+
+#Region "Help:  Using Integration Services connection managers in a script"
+    'Some types of connection managers can be used in this script task.  See the topic 
+    '"Working with Connection Managers Programatically" for details.
+
+    'Example of using an ADO.Net connection manager:
+    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
+    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
+
+    'Example of using a File connection manager
+    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
+    ' Dim filePath As String = CType(rawConnection, String)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
+#End Region
+
+    'This method is called when this script task executes in the control flow.
+    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+    'To open Help, press F1.
+
+    Public Sub Main()
+
+        'v_data_share_root
+        'v_stg_reload
+        'v_stg_reload
+
+        Call proc_variable_msgbox("v_data_share_root")
+
+        Dts.TaskResult = ScriptResults.Success
+
+    End Sub
+
+    Public Sub proc_variable_msgbox(v_var As String)
+
+        'JJAUSSI 2019-11-11: Display the variable name and variable value in a Message Box
+
+        Dim v_variable_name As String
+        Dim v_variable_value As String
+        Dim v_msg As String
+
+
+        v_variable_name = Dts.Variables("User::" & v_var & "").Name
+        v_variable_value = Dts.Variables("User::" & v_var & "").Value
+
+        v_msg = v_variable_name & " = " & v_variable_value
+
+        MsgBox(v_msg, vbInformation, v_variable_name)
+
+    End Sub
+
+#Region "ScriptResults declaration"
+    'This enum provides a convenient shorthand within the scope of this class for setting the
+    'result of the script.
+
+    'This code was generated automatically.
+    Enum ScriptResults
+        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+    End Enum
+
+#End Region
+
+End Class]]></ProjectItem>
               <ProjectItem
                 Name="ST_0c87800d4fb04539b2f1eb8f7da4cbb3.vbproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -385,133 +533,6 @@ End Class]]></ProjectItem>
     <msb:File Include="My Project\Settings.settings" />
   </msb:ItemGroup>
 </c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="ScriptMain.vb"
-                Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
-'The Script Task allows you to perform virtually any operation that can be accomplished in
-'a .Net application within the context of an Integration Services control flow. 
-
-'Expand the other regions which have "Help" prefixes for examples of specific ways to use
-'Integration Services features within this script task.
-#End Region
-
-
-#Region "Imports"
-Imports System
-Imports System.Data
-Imports System.Math
-Imports Microsoft.SqlServer.Dts.Runtime
-#End Region
-
-'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
-'or parent of this class.
-<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
-<System.CLSCompliantAttribute(False)> _
-Partial Public Class ScriptMain
-    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
-
-#Region "Help:  Using Integration Services variables and parameters in a script"
-    'To use a variable in this script, first ensure that the variable has been added to 
-    'either the list contained in the ReadOnlyVariables property or the list contained in 
-    'the ReadWriteVariables property of this script task, according to whether or not your
-    'code needs to write to the variable.  To add the variable, save this script, close this instance of
-    'Visual Studio, and update the ReadOnlyVariables and 
-    'ReadWriteVariables properties in the Script Transformation Editor window.
-    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
-
-    'Example of reading from a variable:
-    ' startTime = Dts.Variables("System::StartTime").Value
-
-    'Example of writing to a variable:
-    ' Dts.Variables("User::myStringVariable").Value = "new value"
-
-    'Example of reading from a package parameter:
-    ' batchId = Dts.Variables("$Package::batchId").Value
-
-    'Example of reading from a project parameter:
-    ' batchId = Dts.Variables("$Project::batchId").Value
-
-    'Example of reading from a sensitive project parameter:
-    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
-#End Region
-
-#Region "Help:  Firing Integration Services events from a script"
-    'This script task can fire events for logging purposes.
-
-    'Example of firing an error event:
-    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
-
-    'Example of firing an information event:
-    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
-
-    'Example of firing a warning event:
-    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
-#End Region
-
-#Region "Help:  Using Integration Services connection managers in a script"
-    'Some types of connection managers can be used in this script task.  See the topic 
-    '"Working with Connection Managers Programatically" for details.
-
-    'Example of using an ADO.Net connection manager:
-    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
-    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
-    ' <Use the connection in some code here, then release the connection>
-    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
-
-    'Example of using a File connection manager
-    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
-    ' Dim filePath As String = CType(rawConnection, String)
-    ' <Use the connection in some code here, then release the connection>
-    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
-#End Region
-
-    'This method is called when this script task executes in the control flow.
-    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
-    'To open Help, press F1.
-
-    Public Sub Main()
-
-        'v_data_share_root
-        'v_stg_reload
-        'v_stg_reload
-
-        Call proc_variable_msgbox("v_data_share_root")
-
-        Dts.TaskResult = ScriptResults.Success
-
-    End Sub
-
-    Public Sub proc_variable_msgbox(v_var As String)
-
-        'JJAUSSI 2019-11-11: Display the variable name and variable value in a Message Box
-
-        Dim v_variable_name As String
-        Dim v_variable_value As String
-        Dim v_msg As String
-
-
-        v_variable_name = Dts.Variables("User::" & v_var & "").Name
-        v_variable_value = Dts.Variables("User::" & v_var & "").Value
-
-        v_msg = v_variable_name & " = " & v_variable_value
-
-        MsgBox(v_msg, vbInformation, v_variable_name)
-
-    End Sub
-
-#Region "ScriptResults declaration"
-    'This enum provides a convenient shorthand within the scope of this class for setting the
-    'result of the script.
-
-    'This code was generated automatically.
-    Enum ScriptResults
-        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
-        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
-    End Enum
-
-#End Region
-
-End Class]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -861,17 +882,17 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
-          DTS:refId="Package\Parent Container\Sequence Container"
+          DTS:refId="Package\Parent Container\Test Connection Managers"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
           DTS:DTSID="{D92B1A86-8704-487B-BA4E-BABC394A8728}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
-          DTS:ObjectName="Sequence Container">
+          DTS:ObjectName="Test Connection Managers">
           <DTS:Variables />
           <DTS:Executables>
             <DTS:Executable
-              DTS:refId="Package\Parent Container\Sequence Container\EXM"
+              DTS:refId="Package\Parent Container\Test Connection Managers\EXM"
               DTS:CreationName="Microsoft.Pipeline"
               DTS:Description="Data Flow Task"
               DTS:DTSID="{CC32FDBA-66CD-4F3D-AEDE-F796D20FC454}"
@@ -885,7 +906,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                   version="1">
                   <components>
                     <component
-                      refId="Package\Parent Container\Sequence Container\EXM\EXM"
+                      refId="Package\Parent Container\Test Connection Managers\EXM\EXM"
                       componentClassID="Microsoft.OLEDBSource"
                       contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                       description="OLE DB Source"
@@ -934,7 +955,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </properties>
                       <connections>
                         <connection
-                          refId="Package\Parent Container\Sequence Container\EXM\EXM.Connections[OleDbConnection]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Connections[OleDbConnection]"
                           connectionManagerID="Package.ConnectionManagers[EXM]"
                           connectionManagerRefId="Package.ConnectionManagers[EXM]"
                           description="The OLE DB runtime connection used to access the database."
@@ -942,175 +963,175 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </connections>
                       <outputs>
                         <output
-                          refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output]"
                           name="OLE DB Source Output">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_id]"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]"
                               name="pl_id"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[l_name]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[l_name]"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]"
                               name="l_name"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[f_name]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[f_name]"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]"
                               name="f_name"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_name]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_name]"
                               length="100"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]"
                               name="pl_name"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_id]"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]"
                               name="t_id"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_id]"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]"
                               name="p_id"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_num]"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_num]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]"
                               name="pl_num"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_code]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_code]"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]"
                               name="p_code"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_name]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_name]"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]"
                               name="p_name"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_target]"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_target]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]"
                               name="p_target"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_code]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_code]"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]"
                               name="t_code"
                               truncationRowDisposition="FailComponent" />
                           </outputColumns>
                           <externalMetadataColumns
                             isUsed="True">
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_id]"
                               dataType="i4"
                               name="pl_id" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[l_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[l_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
                               name="l_name" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[f_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[f_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
                               name="f_name" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_name]"
                               codePage="1252"
                               dataType="str"
                               length="100"
                               name="pl_name" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_id]"
                               dataType="i4"
                               name="t_id" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_id]"
                               dataType="i4"
                               name="p_id" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_num]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[pl_num]"
                               dataType="i4"
                               name="pl_num" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
                               name="p_code" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
                               name="p_name" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_target]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[p_target]"
                               dataType="i4"
                               name="p_target" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].ExternalColumns[t_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
@@ -1118,87 +1139,87 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                           </externalMetadataColumns>
                         </output>
                         <output
-                          refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output]"
                           isErrorOut="true"
                           name="OLE DB Source Error Output">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_id]"
                               name="pl_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[l_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[l_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[l_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[l_name]"
                               name="l_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[f_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[f_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[f_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[f_name]"
                               name="f_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_name]"
                               codePage="1252"
                               dataType="str"
                               length="100"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_name]"
                               name="pl_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_id]"
                               name="t_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_id]"
                               name="p_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_num]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_num]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_num]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[pl_num]"
                               name="pl_num" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_code]"
                               name="p_code" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_name]"
                               name="p_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_target]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_target]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_target]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[p_target]"
                               name="p_target" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[t_code]"
                               name="t_code" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                               name="ErrorCode"
                               specialFlags="1" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                               name="ErrorColumn"
                               specialFlags="2" />
                           </outputColumns>
@@ -1207,7 +1228,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </outputs>
                     </component>
                     <component
-                      refId="Package\Parent Container\Sequence Container\EXM\Union All"
+                      refId="Package\Parent Container\Test Connection Managers\EXM\Union All"
                       componentClassID="Microsoft.UnionAll"
                       contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
                       description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
@@ -1215,169 +1236,169 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       version="1">
                       <inputs>
                         <input
-                          refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1]"
                           name="Union All Input 1">
                           <inputColumns>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[pl_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[pl_id]"
                               cachedDataType="i4"
                               cachedName="pl_id"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_id]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[l_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[l_name]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="50"
                               cachedName="l_name"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[l_name]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[f_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[f_name]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="50"
                               cachedName="f_name"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[f_name]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[pl_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[pl_name]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="100"
                               cachedName="pl_name"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_name]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[t_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[t_id]"
                               cachedDataType="i4"
                               cachedName="t_id"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_id]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[p_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[p_id]"
                               cachedDataType="i4"
                               cachedName="p_id"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_id]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[pl_num]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[pl_num]"
                               cachedDataType="i4"
                               cachedName="pl_num"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[pl_num]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[p_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[p_code]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="5"
                               cachedName="p_code"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_code]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[p_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[p_name]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="50"
                               cachedName="p_name"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_name]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[p_target]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[p_target]"
                               cachedDataType="i4"
                               cachedName="p_target"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[p_target]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1].Columns[t_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1].Columns[t_code]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="5"
                               cachedName="t_code"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]">
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output].Columns[t_code]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]}</property>
                               </properties>
                             </inputColumn>
                           </inputColumns>
                           <externalMetadataColumns />
                         </input>
                         <input
-                          refId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 2]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 2]"
                           dangling="true"
                           hasSideEffects="true"
                           name="Union All Input 2">
@@ -1386,75 +1407,75 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </inputs>
                       <outputs>
                         <output
-                          refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1]"
+                          refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1]"
                           name="Union All Output 1">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_id]"
                               name="pl_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[l_name]"
                               name="l_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[f_name]"
                               name="f_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]"
                               codePage="1252"
                               dataType="str"
                               length="100"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_name]"
                               name="pl_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_id]"
                               name="t_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_id]"
                               name="p_id" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[pl_num]"
                               name="pl_num" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_code]"
                               name="p_code" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]"
                               codePage="1252"
                               dataType="str"
                               length="50"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_name]"
                               name="p_name" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[p_target]"
                               name="p_target" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]"
+                              refId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]"
                               codePage="1252"
                               dataType="str"
                               length="5"
-                              lineageId="Package\Parent Container\Sequence Container\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]"
+                              lineageId="Package\Parent Container\Test Connection Managers\EXM\Union All.Outputs[Union All Output 1].Columns[t_code]"
                               name="t_code" />
                           </outputColumns>
                           <externalMetadataColumns />
@@ -1464,16 +1485,16 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                   </components>
                   <paths>
                     <path
-                      refId="Package\Parent Container\Sequence Container\EXM.Paths[OLE DB Source Output]"
-                      endId="Package\Parent Container\Sequence Container\EXM\Union All.Inputs[Union All Input 1]"
+                      refId="Package\Parent Container\Test Connection Managers\EXM.Paths[OLE DB Source Output]"
+                      endId="Package\Parent Container\Test Connection Managers\EXM\Union All.Inputs[Union All Input 1]"
                       name="OLE DB Source Output"
-                      startId="Package\Parent Container\Sequence Container\EXM\EXM.Outputs[OLE DB Source Output]" />
+                      startId="Package\Parent Container\Test Connection Managers\EXM\EXM.Outputs[OLE DB Source Output]" />
                   </paths>
                 </pipeline>
               </DTS:ObjectData>
             </DTS:Executable>
             <DTS:Executable
-              DTS:refId="Package\Parent Container\Sequence Container\SSIS_PDS"
+              DTS:refId="Package\Parent Container\Test Connection Managers\SSIS_PDS"
               DTS:CreationName="Microsoft.Pipeline"
               DTS:Description="Data Flow Task"
               DTS:DTSID="{0B0C1D84-AD36-42F0-91EF-6F3FA59AECF7}"
@@ -1487,7 +1508,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                   version="1">
                   <components>
                     <component
-                      refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS"
+                      refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS"
                       componentClassID="Microsoft.OLEDBSource"
                       contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
                       description="OLE DB Source"
@@ -1536,7 +1557,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </properties>
                       <connections>
                         <connection
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Connections[OleDbConnection]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Connections[OleDbConnection]"
                           connectionManagerID="Package.ConnectionManagers[SSIS_PDS]"
                           connectionManagerRefId="Package.ConnectionManagers[SSIS_PDS]"
                           description="The OLE DB runtime connection used to access the database."
@@ -1544,149 +1565,149 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </connections>
                       <outputs>
                         <output
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output]"
                           name="OLE DB Source Output">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]"
                               dataType="i4"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageID]"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]"
                               name="PackageID"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]"
                               dataType="guid"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageGUID]"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageGUID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]"
                               name="PackageGUID"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageName]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageName]"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]"
                               name="PackageName"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]"
                               dataType="dbTimeStamp"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreationDate]"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreationDate]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]"
                               name="CreationDate"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]"
                               codePage="1252"
                               dataType="str"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]"
                               name="CreatedBy"
                               truncationRowDisposition="FailComponent" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]"
                               dataType="dbTimeStamp"
                               errorOrTruncationOperation="Conversion"
                               errorRowDisposition="FailComponent"
-                              externalMetadataColumnId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[EnteredDateTime]"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]"
+                              externalMetadataColumnId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[EnteredDateTime]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]"
                               name="EnteredDateTime"
                               truncationRowDisposition="FailComponent" />
                           </outputColumns>
                           <externalMetadataColumns
                             isUsed="True">
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageID]"
                               dataType="i4"
                               name="PackageID" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageGUID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageGUID]"
                               dataType="guid"
                               name="PackageGUID" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageName]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[PackageName]"
                               codePage="1252"
                               dataType="str"
                               length="255"
                               name="PackageName" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreationDate]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreationDate]"
                               dataType="dbTimeStamp"
                               name="CreationDate" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[CreatedBy]"
                               codePage="1252"
                               dataType="str"
                               length="255"
                               name="CreatedBy" />
                             <externalMetadataColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[EnteredDateTime]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].ExternalColumns[EnteredDateTime]"
                               dataType="dbTimeStamp"
                               name="EnteredDateTime" />
                           </externalMetadataColumns>
                         </output>
                         <output
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output]"
                           isErrorOut="true"
                           name="OLE DB Source Error Output">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageID]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageID]"
                               name="PackageID" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageGUID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageGUID]"
                               dataType="guid"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageGUID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageGUID]"
                               name="PackageGUID" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageName]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageName]"
                               codePage="1252"
                               dataType="str"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageName]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[PackageName]"
                               name="PackageName" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreationDate]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreationDate]"
                               dataType="dbTimeStamp"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreationDate]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreationDate]"
                               name="CreationDate" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
                               codePage="1252"
                               dataType="str"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[CreatedBy]"
                               name="CreatedBy" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[EnteredDateTime]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[EnteredDateTime]"
                               dataType="dbTimeStamp"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[EnteredDateTime]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[EnteredDateTime]"
                               name="EnteredDateTime" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                               name="ErrorCode"
                               specialFlags="1" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                               name="ErrorColumn"
                               specialFlags="2" />
                           </outputColumns>
@@ -1695,7 +1716,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </outputs>
                     </component>
                     <component
-                      refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All"
+                      refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All"
                       componentClassID="Microsoft.UnionAll"
                       contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
                       description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
@@ -1703,96 +1724,96 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       version="1">
                       <inputs>
                         <input
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1]"
                           name="Union All Input 1">
                           <inputColumns>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageID]"
                               cachedDataType="i4"
                               cachedName="PackageID"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageID]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageGUID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageGUID]"
                               cachedDataType="guid"
                               cachedName="PackageGUID"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageGUID]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageName]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[PackageName]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="255"
                               cachedName="PackageName"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[PackageName]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[CreationDate]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[CreationDate]"
                               cachedDataType="dbTimeStamp"
                               cachedName="CreationDate"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreationDate]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[CreatedBy]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[CreatedBy]"
                               cachedCodepage="1252"
                               cachedDataType="str"
                               cachedLength="255"
                               cachedName="CreatedBy"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[CreatedBy]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]}</property>
                               </properties>
                             </inputColumn>
                             <inputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[EnteredDateTime]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1].Columns[EnteredDateTime]"
                               cachedDataType="dbTimeStamp"
                               cachedName="EnteredDateTime"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]">
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output].Columns[EnteredDateTime]">
                               <properties>
                                 <property
                                   containsID="true"
                                   dataType="System.Int32"
                                   description="Output column lineage ID"
-                                  name="OutputColumnLineageID">#{Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]}</property>
+                                  name="OutputColumnLineageID">#{Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]}</property>
                               </properties>
                             </inputColumn>
                           </inputColumns>
                           <externalMetadataColumns />
                         </input>
                         <input
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 2]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 2]"
                           dangling="true"
                           hasSideEffects="true"
                           name="Union All Input 2">
@@ -1801,42 +1822,42 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                       </inputs>
                       <outputs>
                         <output
-                          refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1]"
+                          refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1]"
                           name="Union All Output 1">
                           <outputColumns>
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]"
                               dataType="i4"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageID]"
                               name="PackageID" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]"
                               dataType="guid"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageGUID]"
                               name="PackageGUID" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]"
                               codePage="1252"
                               dataType="str"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[PackageName]"
                               name="PackageName" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]"
                               dataType="dbTimeStamp"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreationDate]"
                               name="CreationDate" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]"
                               codePage="1252"
                               dataType="str"
                               length="255"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[CreatedBy]"
                               name="CreatedBy" />
                             <outputColumn
-                              refId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]"
+                              refId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]"
                               dataType="dbTimeStamp"
-                              lineageId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]"
+                              lineageId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Outputs[Union All Output 1].Columns[EnteredDateTime]"
                               name="EnteredDateTime" />
                           </outputColumns>
                           <externalMetadataColumns />
@@ -1846,15 +1867,92 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
                   </components>
                   <paths>
                     <path
-                      refId="Package\Parent Container\Sequence Container\SSIS_PDS.Paths[OLE DB Source Output]"
-                      endId="Package\Parent Container\Sequence Container\SSIS_PDS\Union All.Inputs[Union All Input 1]"
+                      refId="Package\Parent Container\Test Connection Managers\SSIS_PDS.Paths[OLE DB Source Output]"
+                      endId="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All.Inputs[Union All Input 1]"
                       name="OLE DB Source Output"
-                      startId="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output]" />
+                      startId="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS.Outputs[OLE DB Source Output]" />
                   </paths>
                 </pipeline>
               </DTS:ObjectData>
             </DTS:Executable>
           </DTS:Executables>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Parent Container\Test Log Variable Value Changed"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{6A40A6BA-4C82-40C2-90CD-D28242EAB453}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Test Log Variable Value Changed">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:DTSID="{004A7BC2-2755-4412-8F07-8B0E00BA98D1}"
+              DTS:IncludeInDebugDump="2345"
+              DTS:Namespace="User"
+              DTS:ObjectName="v_get_date">
+              <DTS:VariableValue
+                DTS:DataType="8"
+                xml:space="preserve"></DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Parent Container\Test Log Variable Value Changed\Initial Date Time"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{B9D24222-7A4D-4486-B012-9FC10ADAC423}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Initial Date Time"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{65C5CCAD-B1DB-4596-BD72-82DC921D15EF}"
+                  SQLTask:SqlStatementSource="SELECT GETDATE( ) as v_get_date;"
+                  SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ResultBinding
+                    SQLTask:ResultName="v_get_date"
+                    SQLTask:DtsVariableName="User::v_get_date" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Parent Container\Test Log Variable Value Changed\Updated date Time"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{676325BD-EE1E-4B97-8932-3D23D7AFAA08}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Updated date Time"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{65C5CCAD-B1DB-4596-BD72-82DC921D15EF}"
+                  SQLTask:SqlStatementSource="SELECT GETDATE( )+ 100 as v_get_date;"
+                  SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ResultBinding
+                    SQLTask:ResultName="v_get_date"
+                    SQLTask:DtsVariableName="User::v_get_date" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Parent Container\Test Log Variable Value Changed.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{54CB9838-E64D-4026-AEDE-1EEC3FB925F2}"
+              DTS:From="Package\Parent Container\Test Log Variable Value Changed\Initial Date Time"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Parent Container\Test Log Variable Value Changed\Updated date Time" />
+          </DTS:PrecedenceConstraints>
         </DTS:Executable>
       </DTS:Executables>
     </DTS:Executable>
@@ -3226,8 +3324,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -3239,7 +3337,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
@@ -3250,7 +3347,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -3259,7 +3355,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="Microsoft.SqlServer.ScriptTask, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
   </ItemGroup>
-
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
@@ -3268,7 +3363,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     <Import Include="System.Diagnostics" />
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
-
   <ItemGroup>
     <AppDesigner Include="My Project\" />
     <Compile Include="My Project\AssemblyInfo.vb">
@@ -3298,24 +3392,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-
   <!-- Include the build rules for a VB project.-->
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
-
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
-        <ProjectProperties HostName="ScriptTask"
-                           HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}"
-                           ApplicationType="usd"
-                           Language="vb"
-                           TemplatesPath=""
-                           DebugInfoCommandLine=""
-                           DebugInfoWorkingDir=""
-                           IconImageList=""/>
-
-        <Host Name="ScriptTask" IconIndex="">
-        </Host>
+        <ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="vb" TemplatesPath="" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" />
+        <Host Name="ScriptTask" IconIndex=""></Host>
         <ProjectClient>
           <HostIdentifier>SSIS_ST150</HostIdentifier>
         </ProjectClient>
@@ -3361,6 +3444,75 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
+              <ProjectItem
+                Name="My Project\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+              <ProjectItem
+                Name="My Project\Settings.Designer.vb"
+                Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
+' <autogenerated>
+'     This code was generated by a tool.
+'
+'     Changes to this file may cause incorrect behavior and will be lost if
+'     the code is regenerated.
+' </autogenerated>
+'------------------------------------------------------------------------------
+
+Option Strict Off
+Option Explicit On
+
+
+
+Partial Friend NotInheritable Class MySettings
+    Inherits System.Configuration.ApplicationSettingsBase
+
+    Private Shared m_Value As MySettings
+
+    Private Shared m_SyncObject As Object = New Object
+
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Public Shared ReadOnly Property Value() As MySettings
+        Get
+            If (MySettings.m_Value Is Nothing) Then
+                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
+                If (MySettings.m_Value Is Nothing) Then
+                    Try
+                        MySettings.m_Value = New MySettings
+                    Finally
+                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
+                    End Try
+                End If
+            End If
+            Return MySettings.m_Value
+        End Get
+    End Property
+End Class]]></ProjectItem>
+              <ProjectItem
+                Name="Project"
+                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
+  <msb:PropertyGroup>
+    <msb:CodeName>ST_b11823cf1071444bb14d5112db23cd9c</msb:CodeName>
+    <msb:Language>msBuild</msb:Language>
+    <msb:DisplayName>ST_b11823cf1071444bb14d5112db23cd9c</msb:DisplayName>
+    <msb:ProjectId>{CA67DC8D-B971-477C-8FD2-DA138AB360A4}</msb:ProjectId>
+  </msb:PropertyGroup>
+  <msb:ItemGroup>
+    <msb:Project Include="ST_b11823cf1071444bb14d5112db23cd9c.vbproj" />
+    <msb:File Include="My Project\Settings.settings" />
+    <msb:File Include="My Project\AssemblyInfo.vb" />
+    <msb:File Include="ScriptMain.vb" />
+    <msb:File Include="My Project\Resources.resx" />
+    <msb:File Include="My Project\Resources.Designer.vb" />
+    <msb:File Include="My Project\Settings.Designer.vb" />
+  </msb:ItemGroup>
+</c:Project>]]></ProjectItem>
               <ProjectItem
                 Name="ScriptMain.vb"
                 Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
@@ -3447,10 +3599,10 @@ Partial Public Class ScriptMain
 
     Public Sub Main()
         Try
-            Dim sVarValue As String = Dts.Variables(�VariableValue�).Value.ToString
-            Dts.Variables(�strVariableValue�).Value = sVarValue
+            Dim sVarValue As String = Dts.Variables("VariableValue").Value.ToString
+            Dts.Variables("strVariableValue").Value = sVarValue
         Catch ex As Exception
-            Dts.Variables(�strVariableValue�).Value = �Unable to Convert to String: � _
+            Dts.Variables("strVariableValue").Value = "Unable to Convert to String: " _
 & ex.Message
         End Try
         Dts.TaskResult = ScriptResults.Success
@@ -3469,75 +3621,6 @@ Partial Public Class ScriptMain
 #End Region
 
 End Class]]></ProjectItem>
-              <ProjectItem
-                Name="My Project\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)" GeneratedClassNamespace="$safeprojectname" GeneratedClassName="MySettings">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
-              <ProjectItem
-                Name="My Project\Settings.Designer.vb"
-                Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
-' <autogenerated>
-'     This code was generated by a tool.
-'
-'     Changes to this file may cause incorrect behavior and will be lost if
-'     the code is regenerated.
-' </autogenerated>
-'------------------------------------------------------------------------------
-
-Option Strict Off
-Option Explicit On
-
-
-
-Partial Friend NotInheritable Class MySettings
-    Inherits System.Configuration.ApplicationSettingsBase
-
-    Private Shared m_Value As MySettings
-
-    Private Shared m_SyncObject As Object = New Object
-
-    <System.Diagnostics.DebuggerNonUserCode()> _
-    Public Shared ReadOnly Property Value() As MySettings
-        Get
-            If (MySettings.m_Value Is Nothing) Then
-                System.Threading.Monitor.Enter(MySettings.m_SyncObject)
-                If (MySettings.m_Value Is Nothing) Then
-                    Try
-                        MySettings.m_Value = New MySettings
-                    Finally
-                        System.Threading.Monitor.Exit(MySettings.m_SyncObject)
-                    End Try
-                End If
-            End If
-            Return MySettings.m_Value
-        End Get
-    End Property
-End Class]]></ProjectItem>
-              <ProjectItem
-                Name="Project"
-                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
-  <msb:PropertyGroup>
-    <msb:Language>msBuild</msb:Language>
-    <msb:CodeName>ST_b11823cf1071444bb14d5112db23cd9c</msb:CodeName>
-    <msb:DisplayName>ST_b11823cf1071444bb14d5112db23cd9c</msb:DisplayName>
-    <msb:ProjectId>{2FD9D0DD-785C-496A-AE3B-34942118A257}</msb:ProjectId>
-  </msb:PropertyGroup>
-  <msb:ItemGroup>
-    <msb:Project Include="ST_b11823cf1071444bb14d5112db23cd9c.vbproj" />
-    <msb:File Include="My Project\Settings.settings" />
-    <msb:File Include="My Project\AssemblyInfo.vb" />
-    <msb:File Include="ScriptMain.vb" />
-    <msb:File Include="My Project\Resources.resx" />
-    <msb:File Include="My Project\Resources.Designer.vb" />
-    <msb:File Include="My Project\Settings.Designer.vb" />
-  </msb:ItemGroup>
-</c:Project>]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -3723,7 +3806,7 @@ End Namespace]]></ProjectItem>
               <BinaryItem
                 Name="ST_b11823cf1071444bb14d5112db23cd9c.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAAmLNGAAAAAAAAAAAOAAIiALAVAAABoAAAAIAAAAAAAAdjkA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAJGpNmAAAAAAAAAAAOAAIiALAVAAABoAAAAIAAAAAAAAdjkA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAACQ5AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -3823,8 +3906,8 @@ YmplY3QATXlQcm9qZWN0AEV4aXQAc2V0X1Rhc2tSZXN1bHQAbV9Db250ZXh0AFNUX2IxMTgyM2Nm
 MTA3MTQ0NGJiMTRkNTExMmRiMjNjZDljLk15AGdldF9Bc3NlbWJseQAAMU0AeQAuAFIAZQBzAG8A
 dQByAGMAZQBzAC4ATQB5AFIAZQBzAG8AdQByAGMAZQBzAAAbVgBhAHIAaQBhAGIAbABlAFYAYQBs
 AHUAZQAAIXMAdAByAFYAYQByAGkAYQBiAGwAZQBWAGEAbAB1AGUAADtVAG4AYQBiAGwAZQAgAHQA
-bwAgAEMAbwBuAHYAZQByAHQAIAB0AG8AIABTAHQAcgBpAG4AZwA6ACAAAAAAAB5X30bJl91FqRSz
-Sx/SPUEABCABAQgDIAABBSABARERBCABAQ4EIAEBAgUgAgEODgUgAQERRQcgBAEODg4OBhUSJAES
+bwAgAEMAbwBuAHYAZQByAHQAIAB0AG8AIABTAHQAcgBpAG4AZwA6ACAAAAAAAIkwkTp73zpJqZOJ
+DO0gcxwABCABAQgDIAABBSABARERBCABAQ4EIAEBAgUgAgEODgUgAQERRQcgBAEODg4OBhUSJAES
 DAYVEiQBEggGFRIkARJlBhUSJAESIAQgABMABwABEm0RgJ0FIAASgKEHIAIBDhKAoQQAARwcBAAB
 ARwGBwIOEoCVBSAAEoCtBSAAEoCxBiABEoC1HAMgABwDIAAOBCABARwGAAEBEoCVBQACDg4OAwAA
 AQQgAQIcAyAACAQHAR4AAh4ABRABAB4ABAoBHgAEBwETAAYVEiQBEwAHBhUScQETAAYVEnEBEwAC
@@ -3945,44 +4028,95 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
+        <AnnotationLayout
+          Text="This is an anotation"
+          ParentId="Package\Documentation"
+          FontInfo="{assembly:Null}"
+          Size="131.2,NaN"
+          Id="05259f4f-5518-4149-ba40-e8a7c131f14e"
+          TopLeft="60.9036777278533,23.2740769286213" />
+        <ContainerLayout
+          HeaderHeight="43.2"
+          IsExpanded="False"
+          PanelSize="229.6,134.4"
+          Size="172.8,43.2"
+          Id="Package\Documentation"
+          TopLeft="605.309502995204,505.919047520653" />
         <NodeLayout
           Size="184.8,41.6"
           Id="Package\Parent Container\MsgBox check variable"
-          TopLeft="5.49999999999997,57.5" />
+          TopLeft="5.49999999999997,108.3" />
         <NodeLayout
           Size="100.8,41.6"
-          Id="Package\Parent Container\Sequence Container\EXM"
+          Id="Package\Parent Container\Test Connection Managers\EXM"
           TopLeft="5.50000000000001,5.49999999999995" />
         <NodeLayout
           Size="129.6,41.6"
-          Id="Package\Parent Container\Sequence Container\SSIS_PDS"
+          Id="Package\Parent Container\Test Connection Managers\SSIS_PDS"
           TopLeft="167.1,5.49999999999995" />
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
           PanelSize="302.4,102.4"
           Size="302.4,145.6"
-          Id="Package\Parent Container\Sequence Container"
-          TopLeft="250.7,5.49999999999996" />
+          Id="Package\Parent Container\Test Connection Managers"
+          TopLeft="250.7,56.2999999999999" />
+        <NodeLayout
+          Size="153.6,41.6"
+          Id="Package\Parent Container\Test Log Variable Value Changed\Initial Date Time"
+          TopLeft="11.9,5.49999999999995" />
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\Parent Container\Test Log Variable Value Changed\Updated date Time"
+          TopLeft="5.50000000000001,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Test Log Variable Value Changed.PrecedenceConstraints[Constraint]"
+          TopLeft="88.7,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="558.4,206.4"
-          Size="558.4,249.6"
+          PanelSize="177.6,204"
+          Size="177.6,247.2"
+          Id="Package\Parent Container\Test Log Variable Value Changed"
+          TopLeft="614.1,5.49999999999991" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="796.8,308"
+          Size="796.8,351.2"
           Id="Package\Parent Container"
           TopLeft="5.5,107.1" />
         <NodeLayout
           Size="178.4,41.6"
           Id="Package\SQL LogPackageEnd"
-          TopLeft="195.5,416.7" />
+          TopLeft="314.7,519.1" />
         <NodeLayout
           Size="181.6,41.6"
           Id="Package\SQL LogPackageStart"
-          TopLeft="193.9,5.49999999999995" />
+          TopLeft="313.1,5.49999999999995" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="284.7,47.1">
+          TopLeft="403.9,47.1">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -4004,18 +4138,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="284.7,356.7">
+          TopLeft="403.9,458.3">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="0,60.8000000000001"
               Start="0,0"
-              End="0,52.5">
+              End="0,53.3000000000001">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="0,53.3000000000001" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4067,7 +4201,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     design-time-name="Package.EventHandlers[OnVariableValueChanged]">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="207.2,41.6"
           Id="Package.EventHandlers[OnVariableValueChanged]\SCR Convert value to string"
@@ -4095,6 +4229,44 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Parent Container\Test Connection Managers\EXM">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="100.8,41.6"
+          Id="Package\Parent Container\Test Connection Managers\EXM\EXM"
+          TopLeft="15.1,5.49999999999995" />
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\Parent Container\Test Connection Managers\EXM\Union All"
+          TopLeft="5.50000000000001,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Test Connection Managers\EXM.Paths[OLE DB Source Output]"
+          TopLeft="65.5,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
               BoundingBox="0,0,0,0"
               RelativePosition="Any" />
@@ -4102,7 +4274,73 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
-  </DtsEventHandler>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Parent Container\Test Connection Managers\EXM\EXM">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Parent Container\Test Connection Managers\SSIS_PDS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS"
+          TopLeft="5.50000000000001,5.49999999999995" />
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\Parent Container\Test Connection Managers\SSIS_PDS\Union All"
+          TopLeft="10.3,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Test Connection Managers\SSIS_PDS.Paths[OLE DB Source Output]"
+          TopLeft="70.3,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Parent Container\Test Connection Managers\SSIS_PDS\SSIS_PDS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <DtsEventHandler
     design-time-name="Package\SQL LogPackageEnd.EventHandlers[OnVariableValueChanged]">
     <LayoutInfo>
@@ -4179,107 +4417,5 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       </GraphLayout>
     </LayoutInfo>
   </DtsEventHandler>
-  <TaskHost
-    design-time-name="Package\Parent Container\Sequence Container\EXM">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="100.8,41.6"
-          Id="Package\Parent Container\Sequence Container\EXM\EXM"
-          TopLeft="15.1,5.49999999999995" />
-        <NodeLayout
-          Size="120,41.6"
-          Id="Package\Parent Container\Sequence Container\EXM\Union All"
-          TopLeft="5.50000000000001,107.1" />
-        <EdgeLayout
-          Id="Package\Parent Container\Sequence Container\EXM.Paths[OLE DB Source Output]"
-          TopLeft="65.5,47.1">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,59.9999999999999"
-              Start="0,0"
-              End="0,52.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <TaskHost
-    design-time-name="Package\Parent Container\Sequence Container\SSIS_PDS">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="129.6,41.6"
-          Id="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS"
-          TopLeft="5.50000000000001,5.49999999999995" />
-        <NodeLayout
-          Size="120,41.6"
-          Id="Package\Parent Container\Sequence Container\SSIS_PDS\Union All"
-          TopLeft="10.3,107.1" />
-        <EdgeLayout
-          Id="Package\Parent Container\Sequence Container\SSIS_PDS.Paths[OLE DB Source Output]"
-          TopLeft="70.3,47.1">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,59.9999999999999"
-              Start="0,0"
-              End="0,52.4999999999999">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.4999999999999" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Parent Container\Sequence Container\EXM\EXM">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Parent Container\Sequence Container\SSIS_PDS\SSIS_PDS">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
