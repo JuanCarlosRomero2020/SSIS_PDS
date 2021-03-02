@@ -25,7 +25,7 @@ Ver      Date        Author           Description
 -------  ----------  ---------------  ------------------------------------------------------------------------
 1.0      11/03/2019  JJAUSSI          1. Created this process for LDS BC IT243
 1.1      03/28/2021  JJAUSSI          1. Added conn_DFNB3 connection
-
+1.2      03/1/2021   JJAUSSI          1. LoadDFNB3_JR configuration
 
 
 RUNTIME: 
@@ -150,7 +150,7 @@ SELECT c.*
      WHERE ConfigurationFilter = 'LoadDFNB3_JR';
 	
 
-	-- 3.1.1) v_data_share_root
+	-- 3.2.1) v_data_share_root
 
     INSERT INTO dbo.[SSIS Configurations](ConfigurationFilter
                                         , ConfiguredValue
