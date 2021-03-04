@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="LoadDFNB3_JR"
   DTS:PackageType="5"
-  DTS:VersionBuild="108"
-  DTS:VersionGUID="{67205C56-E8E8-4E7F-8A43-2B267CD76A9A}">
+  DTS:VersionBuild="109"
+  DTS:VersionGUID="{C4C7F83A-6B53-4F41-8EAE-31CE0DFBEE4E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
