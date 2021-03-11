@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="LoadDFNB3_JR"
   DTS:PackageType="5"
-  DTS:VersionBuild="131"
-  DTS:VersionGUID="{15BFA1F5-43AF-431F-B3BD-77A680CB32EC}">
+  DTS:VersionBuild="139"
+  DTS:VersionGUID="{ABFD365E-6159-44F5-992B-A2C38BB28239}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -5212,7 +5212,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="v_load_method">
       <DTS:VariableValue
-        DTS:DataType="8">load</DTS:VariableValue>
+        DTS:DataType="8">loop</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -31855,19 +31855,19 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <AnnotationLayout
-          Text="This is an an/*****************************************************************************************************************&#xA;NAME:    LoadDFNB3.dtsx&#xA;PURPOSE: Load the DFNB3&#xA;&#xA;SUPPORT: Jaussi Consulting LLC&#xA;         www.jaussiconsulting.net&#xA;         jon@jaussiconsulting.net&#xA;&#xA;MODIFICATION LOG:&#xA;Ver       Date         Author       Description&#xA;-------   ----------   ----------   -----------------------------------------------------------------------------&#xA;1.0       3/10/2021   JCROMERO 1. Built this package for Ensign College IT 243&#xA;&#xA;&#xA;RUNTIME: &#xA;1 sec&#xA;&#xA;NOTES: &#xA;Load the Date Dimension - inspired by the Kimball Group's Calendar Date Dimension&#xA;&#xA;Example usage...&#xA;&#xA;EXEC dbo.usp_LoadDateDim 250;&#xA;&#xA;&#xA;LICENSE: &#xA;This code is covered by the GNU General Public License which guarantees end users&#xA;the freedom to run, study, share, and modify the code. This license grants the recipients&#xA;of the code the rights of the Free Software Definition. All derivative work can only be&#xA;distributed under the same license terms.&#xA;&#xA;******************************************************************************************************************/otation"
+          Text="This is an an/*****************************************************************************************************************&#xA;NAME:    LoadDFNB3.dtsx&#xA;PURPOSE: Load the DFNB3 Data Warehouse&#xA;&#xA;SUPPORT: Jaussi Consulting LLC&#xA;         www.jaussiconsulting.net&#xA;         jon@jaussiconsulting.net&#xA;&#xA;MODIFICATION LOG:&#xA;Ver       Date         Author       Description&#xA;-------   ----------   ----------   -----------------------------------------------------------------------------&#xA;1.0       3/10/2021   JCROMERO 1. Built this package for Ensign College IT 243&#xD;&#xA;1.1       3/10/2021   JCROMERO 1. Improved control flow naming conventions&#xD;&#xA;&#xA;&#xA;&#xA;RUNTIME: &#xA;1 min&#xA;&#xA;NOTES: &#xA;Load the Date Dimension - inspired by the Kimball Group's Calendar Date Dimension&#xA;&#xA;&#xA;&#xA;LICENSE: &#xA;This code is covered by the GNU General Public License which guarantees end users&#xA;the freedom to run, study, share, and modify the code. This license grants the recipients&#xA;of the code the rights of the Free Software Definition. All derivative work can only be&#xA;distributed under the same license terms.&#xA;&#xA;******************************************************************************************************************/otation"
           ParentId="Package\Documentation"
           FontInfo="{assembly:Null}"
-          Size="663.2,534.4"
+          Size="663.2,518.4"
           Id="05259f4f-5518-4149-ba40-e8a7c131f14e"
           TopLeft="5.50000000000006,5.50000000000006" />
         <ContainerLayout
           HeaderHeight="43"
-          IsExpanded="False"
+          IsExpanded="True"
           PanelSize="674.4,595.2"
-          Size="172.8,43.2"
+          Size="674.4,638.4"
           Id="Package\Documentation"
-          TopLeft="5.50000000000003,622.3" />
+          TopLeft="5.50000000000006,622.3" />
         <NodeLayout
           Size="184.8,41.6"
           Id="Package\MsgBox check variable"
