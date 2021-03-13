@@ -27,6 +27,7 @@ Ver      Date        Author           Description
 1.1      03/28/2021  JCROMERO         1. Added conn_DFNB3 connection
 1.2      03/1/2021   JCROMERO         1. LoadDFNB3_JR configuration
 1.3      12/1/2021   JCROMERO         1. LoadEXM_JR configuration
+1.4      12/1/2021   JCROMERO         1. LoadNAICSCodeHierDim_JR configuration
 
 
 RUNTIME: 
@@ -187,6 +188,24 @@ SELECT c.*
          , 'String'
           );
 
+ --3.4) LoadNAICSCodeHierDim_JR
+  DELETE FROM dbo.[SSIS Configurations]
+     WHERE ConfigurationFilter = 'LoadNAICSCodeHierDim_JR';
+	
+
+	-- 3.4.1) v_data_share_root
+
+    INSERT INTO dbo.[SSIS Configurations](ConfigurationFilter
+                                        , ConfiguredValue
+                                        , PackagePath
+                                        , ConfiguredValueType)
+    VALUES
+          (
+           'LoadNAICSCodeHierDim_JR'
+		 , 'C:\repository\DFNB_dw_JR\xls_files\'
+         , '\Package.Variables[User::v_data_share_root].Properties[Value]'
+         , 'String'
+          );
 
 END;
 
