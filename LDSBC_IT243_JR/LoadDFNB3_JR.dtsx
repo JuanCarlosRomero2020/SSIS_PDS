@@ -12,11 +12,129 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="LoadDFNB3_JR"
   DTS:PackageType="5"
-  DTS:VersionBuild="192"
-  DTS:VersionGUID="{091AEDF6-FE98-4CBD-9402-3FFA3389E45D}">
+  DTS:VersionBuild="204"
+  DTS:VersionGUID="{4699F901-B3EF-47C1-9289-86AFB3EC9EBC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[BRANCH_TRAN_YYYY_txt]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{32AEBE33-B380-43F4-BBF3-A4698D12B938}"
+      DTS:ObjectName="BRANCH_TRAN_YYYY_txt">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::v_data_share_root] + "BRANCH_TRAN_" + @[User::v_tran_year]  + ".txt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\repository\DFNB_src\txt_files\BRANCH_TRAN_.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="branch_id"
+              DTS:DTSID="{7D7116BF-EEEB-4BB1-85E9-6E340874A877}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="acct_id"
+              DTS:DTSID="{E1D6C208-53F3-47DD-82E6-8889863E7B06}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="133"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_date"
+              DTS:DTSID="{A830A026-62D3-44F6-8ACA-3863ACD14184}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="145"
+              DTS:DataScale="7"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_time"
+              DTS:DTSID="{9AEEE076-B7D2-4ED6-A33F-F434B79D70DC}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_type_id"
+              DTS:DTSID="{B7D580FF-FB58-40FD-9FA3-337D49B795BE}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_type_code"
+              DTS:DTSID="{2997C78F-849A-404C-9AD4-B6F4FD360C9E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="100"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_type_desc"
+              DTS:DTSID="{CA771164-CB6B-4A3B-9DA5-7323BF6CA6CA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="131"
+              DTS:DataPrecision="4"
+              DTS:DataScale="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_fee_prct"
+              DTS:DTSID="{6143A015-8481-4237-A2CF-C1A6F141D505}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="1"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="cur_cust_req_ind"
+              DTS:DTSID="{6DD760FB-FFC3-4B4E-86EA-570B38D244EA}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:DataType="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_amt"
+              DTS:DTSID="{0693809A-3ED9-454C-8C67-3CC000335AFB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="131"
+              DTS:DataPrecision="15"
+              DTS:DataScale="3"
+              DTS:TextQualified="True"
+              DTS:ObjectName="tran_fee_amt"
+              DTS:DTSID="{A529DF5C-67E8-43CF-BB4F-CB1F0440CC79}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[DESKTOP-PQNE2KP\MSSQLSERVER01.DFNB31]"
       DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
@@ -5200,7 +5318,7 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
-      DTS:DTSID="{A2DDDDC4-A77D-41D3-A857-72C07B2379CA}"
+      DTS:DTSID="{F027079F-4C55-4BC0-83D4-A2ED9B24807C}"
       DTS:IncludeInDebugDump="6789"
       DTS:Namespace="User"
       DTS:ObjectName="o_tran_year">
@@ -5233,6 +5351,17 @@
       DTS:ObjectName="strVariableValue">
       <DTS:VariableValue
         DTS:DataType="8">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CF94BBCD-7D81-4D16-9402-CA1CA11C0F79}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::v_data_share_root] + &quot;archive\\&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_archive_dir">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\repository\DFNB_src\txt_files\archive\</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -5279,7 +5408,31 @@
       DTS:Namespace="User"
       DTS:ObjectName="v_ole_ado">
       <DTS:VariableValue
-        DTS:DataType="8">ado</DTS:VariableValue>
+        DTS:DataType="8">ole</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AEF82870-A3A9-4B47-8EEA-3C9B6193C3A3}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT s.*&#xA;   FROM dbo.stg_p2 s&#xA;WHERE YEAR(s.tran_date) = '&quot; + @[User::v_tran_year] + &quot;'&#xA;ORDER BY 3,4,5;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_sql">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT s.*
+   FROM dbo.stg_p2 s
+WHERE YEAR(s.tran_date) = ''
+ORDER BY 3,4,5;</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2E9F47EE-1775-43EC-AF42-094C03420AAF}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="v_tran_year">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -5287,6 +5440,7 @@
       DTS:refId="Package\Documentation"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Sequence Container"
+      DTS:Disabled="True"
       DTS:DTSID="{94DA6D83-21B6-483D-A97B-5C099F49B300}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -5350,133 +5504,6 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
-          <ProjectItem
-            Name="ScriptMain.vb"
-            Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
-'The Script Task allows you to perform virtually any operation that can be accomplished in
-'a .Net application within the context of an Integration Services control flow. 
-
-'Expand the other regions which have "Help" prefixes for examples of specific ways to use
-'Integration Services features within this script task.
-#End Region
-
-
-#Region "Imports"
-Imports System
-Imports System.Data
-Imports System.Math
-Imports Microsoft.SqlServer.Dts.Runtime
-#End Region
-
-'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
-'or parent of this class.
-<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
-<System.CLSCompliantAttribute(False)> _
-Partial Public Class ScriptMain
-    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
-
-#Region "Help:  Using Integration Services variables and parameters in a script"
-    'To use a variable in this script, first ensure that the variable has been added to 
-    'either the list contained in the ReadOnlyVariables property or the list contained in 
-    'the ReadWriteVariables property of this script task, according to whether or not your
-    'code needs to write to the variable.  To add the variable, save this script, close this instance of
-    'Visual Studio, and update the ReadOnlyVariables and 
-    'ReadWriteVariables properties in the Script Transformation Editor window.
-    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
-
-    'Example of reading from a variable:
-    ' startTime = Dts.Variables("System::StartTime").Value
-
-    'Example of writing to a variable:
-    ' Dts.Variables("User::myStringVariable").Value = "new value"
-
-    'Example of reading from a package parameter:
-    ' batchId = Dts.Variables("$Package::batchId").Value
-
-    'Example of reading from a project parameter:
-    ' batchId = Dts.Variables("$Project::batchId").Value
-
-    'Example of reading from a sensitive project parameter:
-    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
-#End Region
-
-#Region "Help:  Firing Integration Services events from a script"
-    'This script task can fire events for logging purposes.
-
-    'Example of firing an error event:
-    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
-
-    'Example of firing an information event:
-    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
-
-    'Example of firing a warning event:
-    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
-#End Region
-
-#Region "Help:  Using Integration Services connection managers in a script"
-    'Some types of connection managers can be used in this script task.  See the topic 
-    '"Working with Connection Managers Programatically" for details.
-
-    'Example of using an ADO.Net connection manager:
-    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
-    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
-    ' <Use the connection in some code here, then release the connection>
-    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
-
-    'Example of using a File connection manager
-    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
-    ' Dim filePath As String = CType(rawConnection, String)
-    ' <Use the connection in some code here, then release the connection>
-    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
-#End Region
-
-    'This method is called when this script task executes in the control flow.
-    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
-    'To open Help, press F1.
-
-    Public Sub Main()
-
-        'v_data_share_root
-        'v_stg_reload
-        'v_stg_reload
-
-        Call proc_variable_msgbox("v_data_share_root")
-
-        Dts.TaskResult = ScriptResults.Success
-
-    End Sub
-
-    Public Sub proc_variable_msgbox(v_var As String)
-
-        'JJAUSSI 2019-11-11: Display the variable name and variable value in a Message Box
-
-        Dim v_variable_name As String
-        Dim v_variable_value As String
-        Dim v_msg As String
-
-
-        v_variable_name = Dts.Variables("User::" & v_var & "").Name
-        v_variable_value = Dts.Variables("User::" & v_var & "").Value
-
-        v_msg = v_variable_name & " = " & v_variable_value
-
-        MsgBox(v_msg, vbInformation, v_variable_name)
-
-    End Sub
-
-#Region "ScriptResults declaration"
-    'This enum provides a convenient shorthand within the scope of this class for setting the
-    'result of the script.
-
-    'This code was generated automatically.
-    Enum ScriptResults
-        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
-        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
-    End Enum
-
-#End Region
-
-End Class]]></ProjectItem>
           <ProjectItem
             Name="ST_0c87800d4fb04539b2f1eb8f7da4cbb3.vbproj"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -5661,6 +5688,133 @@ End Class]]></ProjectItem>
     <msb:File Include="My Project\Settings.settings" />
   </msb:ItemGroup>
 </c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.vb"
+            Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
+'The Script Task allows you to perform virtually any operation that can be accomplished in
+'a .Net application within the context of an Integration Services control flow. 
+
+'Expand the other regions which have "Help" prefixes for examples of specific ways to use
+'Integration Services features within this script task.
+#End Region
+
+
+#Region "Imports"
+Imports System
+Imports System.Data
+Imports System.Math
+Imports Microsoft.SqlServer.Dts.Runtime
+#End Region
+
+'ScriptMain is the entry point class of the script.  Do not change the name, attributes,
+'or parent of this class.
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()> _
+<System.CLSCompliantAttribute(False)> _
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+#Region "Help:  Using Integration Services variables and parameters in a script"
+    'To use a variable in this script, first ensure that the variable has been added to 
+    'either the list contained in the ReadOnlyVariables property or the list contained in 
+    'the ReadWriteVariables property of this script task, according to whether or not your
+    'code needs to write to the variable.  To add the variable, save this script, close this instance of
+    'Visual Studio, and update the ReadOnlyVariables and 
+    'ReadWriteVariables properties in the Script Transformation Editor window.
+    'To use a parameter in this script, follow the same steps. Parameters are always read-only.
+
+    'Example of reading from a variable:
+    ' startTime = Dts.Variables("System::StartTime").Value
+
+    'Example of writing to a variable:
+    ' Dts.Variables("User::myStringVariable").Value = "new value"
+
+    'Example of reading from a package parameter:
+    ' batchId = Dts.Variables("$Package::batchId").Value
+
+    'Example of reading from a project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").Value
+
+    'Example of reading from a sensitive project parameter:
+    ' batchId = Dts.Variables("$Project::batchId").GetSensitiveValue()
+#End Region
+
+#Region "Help:  Firing Integration Services events from a script"
+    'This script task can fire events for logging purposes.
+
+    'Example of firing an error event:
+    ' Dts.Events.FireError(18, "Process Values", "Bad value", "", 0)
+
+    'Example of firing an information event:
+    ' Dts.Events.FireInformation(3, "Process Values", "Processing has started", "", 0, fireAgain)
+
+    'Example of firing a warning event:
+    ' Dts.Events.FireWarning(14, "Process Values", "No values received for input", "", 0)
+#End Region
+
+#Region "Help:  Using Integration Services connection managers in a script"
+    'Some types of connection managers can be used in this script task.  See the topic 
+    '"Working with Connection Managers Programatically" for details.
+
+    'Example of using an ADO.Net connection manager:
+    ' Dim rawConnection As Object = Dts.Connections("Sales DB").AcquireConnection(Dts.Transaction)
+    ' Dim myADONETConnection As SqlConnection = CType(rawConnection, SqlConnection)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Sales DB").ReleaseConnection(rawConnection)
+
+    'Example of using a File connection manager
+    ' Dim rawConnection As Object = Dts.Connections("Prices.zip").AcquireConnection(Dts.Transaction)
+    ' Dim filePath As String = CType(rawConnection, String)
+    ' <Use the connection in some code here, then release the connection>
+    ' Dts.Connections("Prices.zip").ReleaseConnection(rawConnection)
+#End Region
+
+    'This method is called when this script task executes in the control flow.
+    'Before returning from this method, set the value of Dts.TaskResult to indicate success or failure.
+    'To open Help, press F1.
+
+    Public Sub Main()
+
+        'v_data_share_root
+        'v_stg_reload
+        'v_stg_reload
+
+        Call proc_variable_msgbox("v_data_share_root")
+
+        Dts.TaskResult = ScriptResults.Success
+
+    End Sub
+
+    Public Sub proc_variable_msgbox(v_var As String)
+
+        'JJAUSSI 2019-11-11: Display the variable name and variable value in a Message Box
+
+        Dim v_variable_name As String
+        Dim v_variable_value As String
+        Dim v_msg As String
+
+
+        v_variable_name = Dts.Variables("User::" & v_var & "").Name
+        v_variable_value = Dts.Variables("User::" & v_var & "").Value
+
+        v_msg = v_variable_name & " = " & v_variable_value
+
+        MsgBox(v_msg, vbInformation, v_variable_name)
+
+    End Sub
+
+#Region "ScriptResults declaration"
+    'This enum provides a convenient shorthand within the scope of this class for setting the
+    'result of the script.
+
+    'This code was generated automatically.
+    Enum ScriptResults
+        Success = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Success
+        Failure = Microsoft.SqlServer.Dts.Runtime.DTSExecResult.Failure
+    End Enum
+
+#End Region
+
+End Class]]></ProjectItem>
           <ProjectItem
             Name="My Project\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -6019,6 +6173,629 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       DTS:ObjectName="Parent Container">
       <DTS:Variables />
       <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Parent Container\Branch Tran file breakout"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{36E9F0B4-E64C-40ED-BEDE-D16E732ECF21}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Branch Tran file breakout">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container"
+              DTS:CreationName="STOCK:FOREACHLOOP"
+              DTS:Description="Foreach Loop Container"
+              DTS:DTSID="{8F6C01F3-DE3D-422B-8522-783C5A94B2F8}"
+              DTS:ExecutableType="STOCK:FOREACHLOOP"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Foreach Loop Container">
+              <DTS:ForEachEnumerator
+                DTS:CreationName="Microsoft.ForEachADOEnumerator"
+                DTS:DTSID="{28D02CC8-4CAC-4C46-933C-794F036D23FD}"
+                DTS:ObjectName="{28D02CC8-4CAC-4C46-933C-794F036D23FD}">
+                <DTS:ObjectData>
+                  <FEEADO
+                    EnumType="EnumerateRowsInFirstTable"
+                    VarName="User::o_tran_year" />
+                </DTS:ObjectData>
+              </DTS:ForEachEnumerator>
+              <DTS:Variables />
+              <DTS:Executables>
+                <DTS:Executable
+                  DTS:refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task"
+                  DTS:CreationName="Microsoft.Pipeline"
+                  DTS:Description="Data Flow Task"
+                  DTS:DTSID="{D9702C62-BA03-4B3D-B587-B21376067D2F}"
+                  DTS:ExecutableType="Microsoft.Pipeline"
+                  DTS:LocaleID="-1"
+                  DTS:ObjectName="Data Flow Task"
+                  DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+                  <DTS:Variables />
+                  <DTS:ObjectData>
+                    <pipeline
+                      version="1">
+                      <components>
+                        <component
+                          refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination"
+                          componentClassID="Microsoft.FlatFileDestination"
+                          contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                          description="Flat File Destination"
+                          localeId="1033"
+                          name="Flat File Destination"
+                          version="1">
+                          <properties>
+                            <property
+                              dataType="System.Boolean"
+                              description="Specifies whether the data will overwrite or append to the destination file."
+                              name="Overwrite">true</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the text to write to the destination file before any data is written."
+                              expressionType="Notify"
+                              name="Header" />
+                            <property
+                              dataType="System.Boolean"
+                              description="When text qualifier is enabled, specifies whether the text qualifier in the data written to the destination file will be escaped or not."
+                              name="EscapeQualifier">false</property>
+                          </properties>
+                          <connections>
+                            <connection
+                              refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Connections[FlatFileConnection]"
+                              connectionManagerID="Package.ConnectionManagers[BRANCH_TRAN_YYYY_txt]"
+                              connectionManagerRefId="Package.ConnectionManagers[BRANCH_TRAN_YYYY_txt]"
+                              name="FlatFileConnection" />
+                          </connections>
+                          <inputs>
+                            <input
+                              refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input]"
+                              hasSideEffects="true"
+                              name="Flat File Destination Input">
+                              <inputColumns>
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[branch_id]"
+                                  cachedDataType="i2"
+                                  cachedName="branch_id"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[branch_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[branch_id]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[acct_id]"
+                                  cachedDataType="i4"
+                                  cachedName="acct_id"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[acct_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[acct_id]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_date]"
+                                  cachedDataType="dbDate"
+                                  cachedName="tran_date"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_date]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_date]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_time]"
+                                  cachedDataType="dbTime2"
+                                  cachedName="tran_time"
+                                  cachedScale="7"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_time]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_time]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_type_id]"
+                                  cachedDataType="i2"
+                                  cachedName="tran_type_id"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_id]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_type_code]"
+                                  cachedCodepage="1252"
+                                  cachedDataType="str"
+                                  cachedLength="5"
+                                  cachedName="tran_type_code"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_code]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_code]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_type_desc]"
+                                  cachedCodepage="1252"
+                                  cachedDataType="str"
+                                  cachedLength="100"
+                                  cachedName="tran_type_desc"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_desc]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_desc]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_fee_prct]"
+                                  cachedDataType="numeric"
+                                  cachedName="tran_fee_prct"
+                                  cachedPrecision="4"
+                                  cachedScale="3"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_fee_prct]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_prct]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[cur_cust_req_ind]"
+                                  cachedCodepage="1252"
+                                  cachedDataType="str"
+                                  cachedLength="1"
+                                  cachedName="cur_cust_req_ind"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[cur_cust_req_ind]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[cur_cust_req_ind]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_amt]"
+                                  cachedDataType="i4"
+                                  cachedName="tran_amt"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_amt]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_amt]" />
+                                <inputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].Columns[tran_fee_amt]"
+                                  cachedDataType="numeric"
+                                  cachedName="tran_fee_amt"
+                                  cachedPrecision="15"
+                                  cachedScale="3"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_fee_amt]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_amt]" />
+                              </inputColumns>
+                              <externalMetadataColumns
+                                isUsed="True">
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[branch_id]"
+                                  dataType="i2"
+                                  name="branch_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[acct_id]"
+                                  dataType="i4"
+                                  name="acct_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_date]"
+                                  dataType="dbDate"
+                                  name="tran_date" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_time]"
+                                  dataType="dbTime2"
+                                  name="tran_time"
+                                  scale="7" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_id]"
+                                  dataType="i2"
+                                  name="tran_type_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_code]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="5"
+                                  name="tran_type_code" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_type_desc]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="100"
+                                  name="tran_type_desc" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_fee_prct]"
+                                  dataType="numeric"
+                                  name="tran_fee_prct"
+                                  precision="4"
+                                  scale="3" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[cur_cust_req_ind]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="1"
+                                  name="cur_cust_req_ind" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_amt]"
+                                  dataType="i4"
+                                  name="tran_amt" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input].ExternalColumns[tran_fee_amt]"
+                                  dataType="numeric"
+                                  name="tran_fee_amt"
+                                  precision="15"
+                                  scale="3" />
+                              </externalMetadataColumns>
+                            </input>
+                          </inputs>
+                        </component>
+                        <component
+                          refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source"
+                          componentClassID="Microsoft.OLEDBSource"
+                          contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                          description="OLE DB Source"
+                          name="OLE DB Source"
+                          usesDispositions="true"
+                          version="7">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                              name="CommandTimeout">0</property>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the name of the database object used to open a rowset."
+                              name="OpenRowset"></property>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the variable that contains the name of the database object used to open a rowset."
+                              name="OpenRowsetVariable"></property>
+                            <property
+                              dataType="System.String"
+                              description="The SQL command to be executed."
+                              name="SqlCommand"
+                              UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                            <property
+                              dataType="System.String"
+                              description="The variable that contains the SQL command to be executed."
+                              name="SqlCommandVariable">User::v_sql</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the column code page to use when code page information is unavailable from the data source."
+                              name="DefaultCodePage">1252</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Forces the use of the DefaultCodePage property value when describing character data."
+                              name="AlwaysUseDefaultCodePage">false</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the mode used to access the database."
+                              name="AccessMode"
+                              typeConverter="AccessMode">3</property>
+                            <property
+                              dataType="System.String"
+                              description="The mappings between the parameters in the SQL command and variables."
+                              name="ParameterMapping"></property>
+                          </properties>
+                          <connections>
+                            <connection
+                              refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Connections[OleDbConnection]"
+                              connectionManagerID="Package.ConnectionManagers[DFNB3]"
+                              connectionManagerRefId="Package.ConnectionManagers[DFNB3]"
+                              description="The OLE DB runtime connection used to access the database."
+                              name="OleDbConnection" />
+                          </connections>
+                          <outputs>
+                            <output
+                              refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output]"
+                              name="OLE DB Source Output">
+                              <outputColumns>
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[branch_id]"
+                                  dataType="i2"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[branch_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[branch_id]"
+                                  name="branch_id"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[acct_id]"
+                                  dataType="i4"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[acct_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[acct_id]"
+                                  name="acct_id"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_date]"
+                                  dataType="dbDate"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_date]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_date]"
+                                  name="tran_date"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_time]"
+                                  dataType="dbTime2"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_time]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_time]"
+                                  name="tran_time"
+                                  scale="7"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_id]"
+                                  dataType="i2"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_id]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_id]"
+                                  name="tran_type_id"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_code]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_code]"
+                                  length="5"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_code]"
+                                  name="tran_type_code"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_desc]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_desc]"
+                                  length="100"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_type_desc]"
+                                  name="tran_type_desc"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_prct]"
+                                  dataType="numeric"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_fee_prct]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_prct]"
+                                  name="tran_fee_prct"
+                                  precision="4"
+                                  scale="3"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[cur_cust_req_ind]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cur_cust_req_ind]"
+                                  length="1"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[cur_cust_req_ind]"
+                                  name="cur_cust_req_ind"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_amt]"
+                                  dataType="i4"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_amt]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_amt]"
+                                  name="tran_amt"
+                                  truncationRowDisposition="FailComponent" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_amt]"
+                                  dataType="numeric"
+                                  errorOrTruncationOperation="Conversion"
+                                  errorRowDisposition="FailComponent"
+                                  externalMetadataColumnId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_fee_amt]"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].Columns[tran_fee_amt]"
+                                  name="tran_fee_amt"
+                                  precision="15"
+                                  scale="3"
+                                  truncationRowDisposition="FailComponent" />
+                              </outputColumns>
+                              <externalMetadataColumns
+                                isUsed="True">
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[branch_id]"
+                                  dataType="i2"
+                                  name="branch_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[acct_id]"
+                                  dataType="i4"
+                                  name="acct_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_date]"
+                                  dataType="dbDate"
+                                  name="tran_date" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_time]"
+                                  dataType="dbTime2"
+                                  name="tran_time"
+                                  scale="7" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_id]"
+                                  dataType="i2"
+                                  name="tran_type_id" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_code]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="5"
+                                  name="tran_type_code" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_type_desc]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="100"
+                                  name="tran_type_desc" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_fee_prct]"
+                                  dataType="numeric"
+                                  name="tran_fee_prct"
+                                  precision="4"
+                                  scale="3" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[cur_cust_req_ind]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="1"
+                                  name="cur_cust_req_ind" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_amt]"
+                                  dataType="i4"
+                                  name="tran_amt" />
+                                <externalMetadataColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tran_fee_amt]"
+                                  dataType="numeric"
+                                  name="tran_fee_amt"
+                                  precision="15"
+                                  scale="3" />
+                              </externalMetadataColumns>
+                            </output>
+                            <output
+                              refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                              isErrorOut="true"
+                              name="OLE DB Source Error Output">
+                              <outputColumns>
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[branch_id]"
+                                  dataType="i2"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[branch_id]"
+                                  name="branch_id" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[acct_id]"
+                                  dataType="i4"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[acct_id]"
+                                  name="acct_id" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_date]"
+                                  dataType="dbDate"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_date]"
+                                  name="tran_date" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_time]"
+                                  dataType="dbTime2"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_time]"
+                                  name="tran_time"
+                                  scale="7" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_id]"
+                                  dataType="i2"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_id]"
+                                  name="tran_type_id" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_code]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="5"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_code]"
+                                  name="tran_type_code" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_desc]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="100"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_type_desc]"
+                                  name="tran_type_desc" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_fee_prct]"
+                                  dataType="numeric"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_fee_prct]"
+                                  name="tran_fee_prct"
+                                  precision="4"
+                                  scale="3" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cur_cust_req_ind]"
+                                  codePage="1252"
+                                  dataType="str"
+                                  length="1"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[cur_cust_req_ind]"
+                                  name="cur_cust_req_ind" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_amt]"
+                                  dataType="i4"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_amt]"
+                                  name="tran_amt" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_fee_amt]"
+                                  dataType="numeric"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tran_fee_amt]"
+                                  name="tran_fee_amt"
+                                  precision="15"
+                                  scale="3" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                                  dataType="i4"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                                  name="ErrorCode"
+                                  specialFlags="1" />
+                                <outputColumn
+                                  refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                                  dataType="i4"
+                                  lineageId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                                  name="ErrorColumn"
+                                  specialFlags="2" />
+                              </outputColumns>
+                              <externalMetadataColumns />
+                            </output>
+                          </outputs>
+                        </component>
+                      </components>
+                      <paths>
+                        <path
+                          refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task.Paths[OLE DB Source Output]"
+                          endId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination.Inputs[Flat File Destination Input]"
+                          name="OLE DB Source Output"
+                          startId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source.Outputs[OLE DB Source Output]" />
+                      </paths>
+                    </pipeline>
+                  </DTS:ObjectData>
+                </DTS:Executable>
+                <DTS:Executable
+                  DTS:refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\File System Task"
+                  DTS:CreationName="Microsoft.FileSystemTask"
+                  DTS:Description="File System Task"
+                  DTS:DTSID="{68D32EF9-898E-4A43-B55B-C431D23C1BCC}"
+                  DTS:ExecutableType="Microsoft.FileSystemTask"
+                  DTS:LocaleID="-1"
+                  DTS:ObjectName="File System Task"
+                  DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+                  DTS:ThreadHint="4">
+                  <DTS:Variables />
+                  <DTS:ObjectData>
+                    <FileSystemData
+                      TaskOperationType="MoveFile"
+                      TaskOverwriteDestFile="True"
+                      TaskSourcePath="{32AEBE33-B380-43F4-BBF3-A4698D12B938}"
+                      TaskDestinationPath="User::v_archive_dir"
+                      TaskIsDestinationVariable="True" />
+                  </DTS:ObjectData>
+                </DTS:Executable>
+              </DTS:Executables>
+              <DTS:PrecedenceConstraints>
+                <DTS:PrecedenceConstraint
+                  DTS:refId="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+                  DTS:CreationName=""
+                  DTS:DTSID="{BDF8350D-2FE4-4CA9-BCD7-8EF4E7C3B6BE}"
+                  DTS:From="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task"
+                  DTS:LogicalAnd="True"
+                  DTS:ObjectName="Constraint"
+                  DTS:To="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\File System Task" />
+              </DTS:PrecedenceConstraints>
+              <DTS:ForEachVariableMappings>
+                <DTS:ForEachVariableMapping
+                  DTS:CreationName=""
+                  DTS:DTSID="{FB7304BD-F157-4441-803D-C0E15418B38D}"
+                  DTS:ObjectName="{FB7304BD-F157-4441-803D-C0E15418B38D}"
+                  DTS:ValueIndex="0"
+                  DTS:VariableName="User::v_tran_year" />
+              </DTS:ForEachVariableMappings>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Parent Container\Branch Tran file breakout\Tran Year List"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{5E639CD7-48AA-41AA-B649-15CAD6478D7A}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Tran Year List"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="4">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{B63EAB0B-2E8E-4AAA-BE95-F400BA85FAF8}"
+                  SQLTask:SqlStatementSource="SELECT DISTINCT CAST(YEAR(s.tran_date) as varchar(4)) as v_tran_year&#xA;   FROM dbo.stg_p2 s&#xA;ORDER BY 1;&#xA;"
+                  SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+                  <SQLTask:ResultBinding
+                    SQLTask:ResultName="0"
+                    SQLTask:DtsVariableName="User::o_tran_year" />
+                </SQLTask:SqlTaskData>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Parent Container\Branch Tran file breakout.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{DC2271FA-E897-4A9D-888B-25E8CA7E8168}"
+              DTS:From="Package\Parent Container\Branch Tran file breakout\Tran Year List"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
         <DTS:Executable
           DTS:refId="Package\Parent Container\Data Profiling Task"
           DTS:CreationName="Microsoft.DataProfilingTask"
@@ -6728,7 +7505,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           DTS:refId="Package\Parent Container\Reload raw data - Flat file"
           DTS:CreationName="STOCK:SEQUENCE"
           DTS:Description="Sequence Container"
-          DTS:Disabled="True"
           DTS:DTSID="{5FC91CAD-499D-4A68-8427-818FAA26E363}"
           DTS:ExecutableType="STOCK:SEQUENCE"
           DTS:LocaleID="-1"
@@ -32023,44 +32799,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
   </ProjectExtensions>
 </Project>]]></ProjectItem>
               <ProjectItem
-                Name="My Project\AssemblyInfo.vb"
-                Encoding="UTF8"><![CDATA[Imports System
-Imports System.Reflection
-Imports System.Runtime.InteropServices
-
-' General Information about an assembly is controlled through the following 
-' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
-
-' Review the values of the assembly attributes
-
-<Assembly: AssemblyTitle("ST_b11823cf1071444bb14d5112db23cd9c")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("ST_b11823cf1071444bb14d5112db23cd9c")> 
-<Assembly: AssemblyCopyright("Copyright @  2021")> 
-<Assembly: AssemblyTrademark("")> 
-<Assembly: CLSCompliant(True)> 
-
-<Assembly: ComVisible(False)> 
-
-'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("d0ad6014-5e89-492d-8aed-df3fe084ca2c")> 
-
-' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version 
-'      Build Number
-'      Revision
-'
-' You can specify all the values or you can default the Build and Revision Numbers 
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")>
-
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
-              <ProjectItem
                 Name="ScriptMain.vb"
                 Encoding="UTF8"><![CDATA[#Region "Help:  Introduction to the script task"
 'The Script Task allows you to perform virtually any operation that can be accomplished in
@@ -32177,6 +32915,44 @@ End Class]]></ProjectItem>
   </Profiles>
   <Settings />
 </SettingsFile>]]></ProjectItem>
+              <ProjectItem
+                Name="My Project\AssemblyInfo.vb"
+                Encoding="UTF8"><![CDATA[Imports System
+Imports System.Reflection
+Imports System.Runtime.InteropServices
+
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
+
+' Review the values of the assembly attributes
+
+<Assembly: AssemblyTitle("ST_b11823cf1071444bb14d5112db23cd9c")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("ST_b11823cf1071444bb14d5112db23cd9c")> 
+<Assembly: AssemblyCopyright("Copyright @  2021")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
+
+<Assembly: ComVisible(False)> 
+
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("d0ad6014-5e89-492d-8aed-df3fe084ca2c")> 
+
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
+
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Settings.Designer.vb"
                 Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
@@ -32644,7 +33420,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <AnnotationLayout
           Text="This is an an/*****************************************************************************************************************&#xA;NAME:    LoadDFNB3.dtsx&#xA;PURPOSE: Load the DFNB3 Data Warehouse&#xA;&#xA;SUPPORT: Jaussi Consulting LLC&#xA;         www.jaussiconsulting.net&#xA;         jon@jaussiconsulting.net&#xA;&#xA;MODIFICATION LOG:&#xA;Ver       Date         Author       Description&#xA;-------   ----------   ----------   -----------------------------------------------------------------------------&#xA;1.0       3/10/2021   JCROMERO 1. Built this package for Ensign College IT 243&#xA;1.1       3/10/2021   JCROMERO 1. Improved control flow naming conventions&#xA;1.2       3/10/2021   JCROMERO 1. Match the Connection managers with SQL server Management&#xA;1.3       3/10/2021   JCROMERO 1. Review Conversion chart of SSIS data types to SQL Server data types&#xA;&#xA;&#xA;&#xA;RUNTIME: &#xA;1 min&#xA;&#xA;NOTES: &#xA;Load the Date Dimension - inspired by the Kimball Group's Calendar Date Dimension&#xA;&#xA;&#xA;&#xA;LICENSE: &#xA;This code is covered by the GNU General Public License which guarantees end users&#xA;the freedom to run, study, share, and modify the code. This license grants the recipients&#xA;of the code the rights of the Free Software Definition. All derivative work can only be&#xA;distributed under the same license terms.&#xA;&#xA;******************************************************************************************************************/otation"
           ParentId="Package\Documentation"
@@ -32666,11 +33442,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         <NodeLayout
           Size="166.4,41.6"
           Id="Package\Parent Container\Data Profiling Task"
-          TopLeft="712.7,314.3" />
+          TopLeft="471.1,314.3" />
         <NodeLayout
           Size="214.4,41.6"
           Id="Package\Parent Container\LoadNAICSCodeHierDim_JR"
-          TopLeft="437.7,314.3" />
+          TopLeft="196.1,314.3" />
         <NodeLayout
           Size="131.2,41.6"
           Id="Package\Parent Container\Nums\Load Nums"
@@ -32826,12 +33602,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <ContainerLayout
-          HeaderHeight="43"
+          HeaderHeight="43.2"
           IsExpanded="False"
           PanelSize="414.4,409.6"
           Size="129.6,43.2"
           Id="Package\Parent Container\Nums"
-          TopLeft="247.1,313.5" />
+          TopLeft="5.49999999999996,313.5" />
         <NodeLayout
           Size="150.4,41.6"
           Id="Package\Parent Container\Reload raw data - Flat file\Foreach Loop Container\Data Flow Task"
@@ -32839,8 +33615,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="161.6,102.6"
-          Size="161.6,145.6"
+          PanelSize="161.6,102.4"
+          Size="161.6,144.8"
           Id="Package\Parent Container\Reload raw data - Flat file\Foreach Loop Container"
           TopLeft="191.1,107.1" />
         <NodeLayout
@@ -32929,10 +33705,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
           PanelSize="358.4,308"
           Size="220.8,43.2"
           Id="Package\Parent Container\Reload raw data - Flat file"
-          TopLeft="685.5,5.49999999999991" />
+          TopLeft="443.9,5.49999999999991" />
         <EdgeLayout
           Id="Package\Parent Container.PrecedenceConstraints[Constraint 2]"
-          TopLeft="760.433333333333,48.6999999999999">
+          TopLeft="518.833333333333,48.6999999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -32966,7 +33742,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Parent Container.PrecedenceConstraints[Constraint 3]"
-          TopLeft="831.366666666667,48.6999999999999">
+          TopLeft="589.766666666667,48.6999999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -32998,13 +33774,83 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="143.2,41.6"
+          Id="Package\Parent Container\Branch Tran file breakout\Tran Year List"
+          TopLeft="18.7,5.49999999999995" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task"
+          TopLeft="9.50000000000001,5.49999999999995" />
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\File System Task"
+          TopLeft="5.50000000000001,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="84.7,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="912,616.8"
-          Size="912,660"
+          PanelSize="169.6,204"
+          Size="169.6,247.2"
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container"
+          TopLeft="5.50000000000004,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Branch Tran file breakout.PrecedenceConstraints[Constraint]"
+          TopLeft="90.3,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="180.8,409.6"
+          Size="180.8,452.8"
+          Id="Package\Parent Container\Branch Tran file breakout"
+          TopLeft="697.9,108.7" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="884,616.8"
+          Size="884,660"
           Id="Package\Parent Container"
-          TopLeft="116.9,107.1" />
+          TopLeft="130.9,107.1" />
         <NodeLayout
           Size="178.4,41.6"
           Id="Package\SQL LogPackageEnd"
@@ -33254,7 +34100,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     design-time-name="Package\Parent Container\Reload raw data - Flat file\Foreach Loop Container\Data Flow Task">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="145.6,41.6"
           Id="Package\Parent Container\Reload raw data - Flat file\Foreach Loop Container\Data Flow Task\stg_p1_bN_txt"
@@ -33282,9 +34128,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -33307,7 +34151,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
     design-time-name="Package\Parent Container\Reload raw data - Flat file\Load data">
     <LayoutInfo>
       <GraphLayout
-        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="126.4,41.6"
           Id="Package\Parent Container\Reload raw data - Flat file\Load data\stg_p2_txt"
@@ -33391,9 +34235,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33427,9 +34269,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33463,9 +34303,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33499,9 +34337,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33535,9 +34371,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33571,9 +34405,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33595,9 +34427,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33631,9 +34461,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33667,9 +34495,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33703,9 +34529,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33739,9 +34563,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33775,9 +34597,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33811,9 +34631,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -33835,9 +34653,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -33945,5 +34761,51 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
       </GraphLayout>
     </LayoutInfo>
   </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source"
+          TopLeft="14.7,5.49999999999995" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\Flat File Destination"
+          TopLeft="5.50000000000001,107.1" />
+        <EdgeLayout
+          Id="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task.Paths[OLE DB Source Output]"
+          TopLeft="90.7,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.9999999999999"
+              Start="0,0"
+              End="0,52.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Parent Container\Branch Tran file breakout\Foreach Loop Container\Data Flow Task\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
